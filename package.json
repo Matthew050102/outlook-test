@@ -1,0 +1,21 @@
+{
+  "name": "outlookpuppeteer",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test:puppeteer": "node ./src/tests/outlook.test.js",
+    "test:cucumber": "cucumber-js ./src/features/email.feature --import src/features/hooks/*.js --import src/features/steps/*.js"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.7",
+    "puppeteer": "^25.13.0",
+    "puppeteer-core": "^25.13.0"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^13.3.0"
+  }
+}
