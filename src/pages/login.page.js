@@ -1,3 +1,9 @@
+import {
+  locatorWait,
+  locatorWaitAndClick,
+  locatorWaitAndFill,
+} from "../utils/locator.js";
+
 export async function login(page, loginParams) {
   const { url, email, password, stayLoggedIn } = loginParams;
 
@@ -28,23 +34,23 @@ async function openOutlook(page, url) {
 }
 
 async function fillEmail(page, email) {
-  await page.locator('input[type="email"]').fill(email);
+  await locatorWaitAndFill(page, 'input[type="email"]', email);
 }
 
 async function submitEmail(page) {
-  await page.locator('input[type="submit"]').click();
+  await locatorWaitAndClick(page, 'input[type="submit"]');
 }
 
 async function choosePasswordLogin(page) {
-  await page.locator("::-p-aria(A jelszó használata)").click();
+  await locatorWaitAndClick(page, "::-p-aria(A jelszó használata)");
 }
 
 async function fillPassword(page, password) {
-  await page.locator('input[type="password"]').fill(password);
+  await locatorWaitAndFill(page, 'input[type="password"]', password);
 }
 
 async function submitPassword(page) {
-  await page.locator('button[type="submit"]').click();
+  await locatorWaitAndClick(page, 'button[type="submit"]');
 }
 
 async function handleStayLoggedIn(page, stayLoggedIn) {
@@ -52,11 +58,12 @@ async function handleStayLoggedIn(page, stayLoggedIn) {
     ? '[data-testid="primaryButton"]'
     : '[data-testid="secondaryButton"]';
 
-  await page.locator(buttonSelector).click();
+  await locatorWaitAndClick(page, buttonSelector);
 }
 
 async function waitForLoginRedirect(page) {
-  await page
-    .locator('[customtooltip="Új e-mail üzenet létrehozása. (N)"]')
-    .wait();
+  await locatorWait(
+    page,
+    '[customtooltip="Új e-mail üzenet létrehozása. (N)"]',
+  );
 }
