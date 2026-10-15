@@ -1,4 +1,4 @@
-import { locatorWaitAndClick } from "../utils/locator.js";
+import { locatorWait, locatorWaitAndClick } from "../utils/locator.js";
 
 export async function verifyEmail(page, subject) {
   await navigateToSentEmails(page);
@@ -23,9 +23,8 @@ async function openSentEmails(page) {
 }
 
 async function emailHasSubject(page, subject) {
-  const emailLocator = await page.locator(`::-p-text(${subject})`);
   try {
-    await emailLocator.wait();
+    await locatorWait(page, `::-p-text(${subject})`);
     return true;
   } catch {
     return false;
