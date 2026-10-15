@@ -1,5 +1,10 @@
 import { getRandomEmailContent } from "../utils/email-content.js";
-import { locatorWaitAndClick, locatorWaitAndFill } from "../utils/locator.js";
+import {
+  locatorWait,
+  locatorWaitAndClick,
+  locatorWaitAndFill,
+  locatorWaitClickAndType,
+} from "../utils/locator.js";
 
 export async function sendEmail(page, recipient) {
   await openEmailForm(page);
@@ -22,7 +27,7 @@ async function initEmailFormBody(recipient) {
 
 async function openEmailForm(page) {
   await locatorWaitAndClick(page, 'button[aria-label="Új üzenet"]');
-  await page.locator('[aria-label="Címzett"]').wait();
+  await locatorWait(page, '[aria-label="Címzett"]');
 }
 
 async function fillEmailForm(page, emailFormBody) {
@@ -32,8 +37,11 @@ async function fillEmailForm(page, emailFormBody) {
 }
 
 async function fillRecipient(page, recipient) {
-  await locatorWaitAndClick(page, '[aria-label="Címzett"]');
-  await page.keyboard.type(`${recipient};`);
+  await locatorWaitClickAndType(
+    page,
+    '[aria-label="Címzett"]',
+    `${recipient};`,
+  );
 }
 
 async function fillSubject(page, subject) {
@@ -41,8 +49,11 @@ async function fillSubject(page, subject) {
 }
 
 async function fillContent(page, content) {
-  await locatorWaitAndClick(page, '[aria-label="Üzenet szövege"]');
-  await page.keyboard.type(`${content}`);
+  await locatorWaitClickAndType(
+    page,
+    '[aria-label="Üzenet szövege"]',
+    `${content}`,
+  );
 }
 
 async function clickSendButton(page) {
