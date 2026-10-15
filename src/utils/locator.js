@@ -12,6 +12,13 @@ export async function locatorWaitAndClick(page, selector) {
   return locator;
 }
 
+export async function locatorWaitClickAndType(page, selector, text) {
+  const locator = await locatorWaitAndClick(page, selector);
+  await page.keyboard.type(text);
+
+  return locator;
+}
+
 export async function locatorWaitAndFill(page, selector, content) {
   const locator = await locatorWait(page, selector);
   await locator.fill(content);
