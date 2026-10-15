@@ -1,8 +1,9 @@
-import { locatorWaitAndClick } from "../utils/locator.js";
+import { locatorWait, locatorWaitAndClick } from "../utils/locator.js";
 
 export async function clearEmails(page) {
   await clickClearButton(page);
   await clickClearEmailsButton(page);
+  await waitForEmptyFolder(page);
 }
 
 async function clickClearButton(page) {
@@ -11,4 +12,8 @@ async function clickClearButton(page) {
 
 async function clickClearEmailsButton(page) {
   await locatorWaitAndClick(page, "::-p-text(Az összes törlése)");
+}
+
+async function waitForEmptyFolder(page) {
+  await locatorWait(page, "::-p-text(Üres a(z) Elküldve mappa)");
 }
