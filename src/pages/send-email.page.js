@@ -7,16 +7,12 @@ import {
 } from "../utils/locator.js";
 
 export async function sendEmail(page, recipient) {
-  await openEmailForm(page);
-  const emailFormBody = await initEmailFormBody(recipient);
-  await fillEmailForm(page, emailFormBody);
-  await clickSendButton(page);
-
-  return emailFormBody;
-}
-
-async function initEmailFormBody(recipient) {
+  await clickNewMessageButton(page);
   const { subject, content } = getRandomEmailContent();
+  await fillRecipient(page, recipient);
+  await fillSubject(page, subject);
+  await fillContent(page, content);
+  await clickSendButton(page);
 
   return {
     recipient,
@@ -25,15 +21,9 @@ async function initEmailFormBody(recipient) {
   };
 }
 
-async function openEmailForm(page) {
+async function clickNewMessageButton(page) {
   await locatorWaitAndClick(page, 'button[aria-label="Új üzenet"]');
   await locatorWait(page, '[aria-label="Címzett"]');
-}
-
-async function fillEmailForm(page, emailFormBody) {
-  await fillRecipient(page, emailFormBody.recipient);
-  await fillSubject(page, emailFormBody.subject);
-  await fillContent(page, emailFormBody.content);
 }
 
 async function fillRecipient(page, recipient) {

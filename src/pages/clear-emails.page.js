@@ -2,7 +2,7 @@ import { locatorWait, locatorWaitAndClick } from "../utils/locator.js";
 
 export async function clearEmails(page) {
   await clickClearButton(page);
-  await clickClearEmailsButton(page);
+  await clearConfirmPopup(page);
   await waitForEmptyFolder(page);
 }
 
@@ -10,7 +10,7 @@ async function clickClearButton(page) {
   await locatorWaitAndClick(page, 'button[aria-label="Mappa ürítése"]');
 }
 
-async function clickClearEmailsButton(page) {
+async function clearConfirmPopup(page) {
   await locatorWaitAndClick(page, "::-p-text(Az összes törlése)");
 }
 
